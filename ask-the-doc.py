@@ -24,7 +24,7 @@ def generate_response(uploaded_file, openai_api_key,query_text):
 	texts = text_splitter.create_documents(documents)
 
 	# Select embeddings
-	embeddings = OpenAIEmbeddings()
+	embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
 	# Create a vectorstore using FAISS (instead of Chroma) from documents
 	db = FAISS.from_documents(texts, embeddings)
