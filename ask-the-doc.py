@@ -1,9 +1,13 @@
+import os
+os.environ["OPENAI_API_KEY"] = openai_api_key
+
 import streamlit as st
 from langchain_community.llms import OpenAI
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
+embeddings = OpenAIEmbeddings()
 
 def generate_response(uploaded_file, openai_api_key,query_text):
 	# Load document if file is uploaded
@@ -18,7 +22,7 @@ def generate_response(uploaded_file, openai_api_key,query_text):
 	texts = text_splitter.create_documents(documents)
 
 	# Select embeddings
-	embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+	
 
 	# Create a vectorstore using FAISS (instead of Chroma) from documents
 	db = FAISS.from_documents(texts, embeddings)
